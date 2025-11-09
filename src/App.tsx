@@ -62,7 +62,7 @@ export default function PortfolioSite(): JSX.Element {
             className="text-blue-600 hover:text-blue-800 transition-colors"
             aria-label="LinkedIn Profile"
           >
-            <FaLinkedin size={40} className="mt-2 sm:mt-0" />
+            <FaLinkedin size={48} className="mt-2 sm:mt-0" />
           </a>
         </div>
 
