@@ -1,7 +1,7 @@
 export const COLORS = {
   background: {
-    default: 'rgb(225, 225, 225)',
-    scrollEnd: 'rgb(191, 219, 254)',
+    default: 'rgb(255, 255, 255)',
+    scrollEnd: 'rgb(205, 205, 255)',
   },
   primary: 'rgb(37, 99, 235)', // blue-600
   text: {

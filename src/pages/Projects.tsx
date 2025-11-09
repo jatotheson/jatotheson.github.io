@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 export default function ProjectsPage() {
@@ -12,7 +11,7 @@ export default function ProjectsPage() {
       className="mt-16 space-y-12"
       aria-labelledby="projects-heading"
     >
-      <h2 id="projects-heading" className="text-3xl font-semibold mb-4">
+      <h2 id="projects-heading" className="text-5xl font-semibold mb-4 text-center">
         Personal Projects
       </h2>
       <p className="text-gray-700 mb-6">
