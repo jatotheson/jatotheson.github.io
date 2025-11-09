@@ -10,16 +10,19 @@ export const COLORS = {
   }
 } as const
 
+
 export const ANIMATION = {
   duration: 0.5,
   scrollHeight: '120vh',
 } as const
 
+
+export const BASE_URL = import.meta.env.BASE_URL
 export function getAssetUrl(path: string): string {
   // Ensure there’s no leading slash duplication
-  const base = import.meta.env.BASE_URL.endsWith('/')
-    ? import.meta.env.BASE_URL
-    : import.meta.env.BASE_URL + '/'
+  const base_url = BASE_URL.endsWith('/')
+    ? BASE_URL
+    : BASE_URL + '/'
 
-  return `${base}${path.replace(/^\/+/, '')}`
+  return `${base_url}${path.replace(/^\/+/, '')}`
 }
