@@ -1,4 +1,4 @@
-import { COLORS } from '@/constants';
+import { COLORS, getAssetUrl } from '@/constants';
 import { motion } from 'framer-motion';
 
 export default function HomePage() {
@@ -87,7 +87,7 @@ export default function HomePage() {
           <div className="flex justify-between items-center">
             <p className="text-gray-700 font-medium">Resume Preview:</p>
             <a
-              href="/TAE KWANG (JASON) CHUNG - TECH RESUME_D.pdf"
+              href={getAssetUrl('TAE KWANG (JASON) CHUNG - TECH RESUME_D.pdf')}
               download
               className="px-6 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors flex items-center gap-2"
             >
@@ -98,12 +98,12 @@ export default function HomePage() {
             </a>
           </div>
           <iframe
-            src="/TAE KWANG (JASON) CHUNG - TECH RESUME_D.pdf"
+            src={getAssetUrl('TAE KWANG (JASON) CHUNG - TECH RESUME_D.pdf')}
             title="Resume Preview"
             className="w-full h-96 border-2 border-gray-300 rounded-xl shadow-lg"
           ></iframe>
         </div>
-  </section>
+      </section>
 
       {/* <div className="h-[200vh] flex items-end justify-center">
         <p className="text-gray-400 mb-10">

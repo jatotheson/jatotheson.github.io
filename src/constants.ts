@@ -14,3 +14,12 @@ export const ANIMATION = {
   duration: 0.5,
   scrollHeight: '120vh',
 } as const
+
+export function getAssetUrl(path: string): string {
+  // Ensure there’s no leading slash duplication
+  const base = import.meta.env.BASE_URL.endsWith('/')
+    ? import.meta.env.BASE_URL
+    : import.meta.env.BASE_URL + '/'
+
+  return `${base}${path.replace(/^\/+/, '')}`
+}

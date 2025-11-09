@@ -50,7 +50,7 @@ export default function PortfolioSite(): JSX.Element {
           bg-gradient-to-r from-sky-500 to-sky-600 shadow-[0_0_25px_rgba(99,102,241,0.6)]
           hover:from-blue-500 hover:to-blue-600 hover:shadow-[0_0_25px_rgba(56,189,248,0.8)]
           px-4 py-3 rounded-2xl
-          border border-blue-700 shadow-lg 
+          border border-blue-700 
           transition-all duration-300">
             Tae Kwang (Jason) Chung's Website
           </h1>
