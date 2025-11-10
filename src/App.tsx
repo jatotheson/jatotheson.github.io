@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   motion,
   AnimatePresence,
   useMotionValue,
   useTransform,
 } from "framer-motion";
-import { FaLinkedin } from 'react-icons/fa';
+import { FaLinkedin } from "react-icons/fa";
 
-import { COLORS } from './constants';
+import { COLORS } from "./constants";
 import { PageButton } from "@/components/ui/PageButton";
 import HomePage from "./pages/Home";
 import ProjectsPage from "./pages/Projects";
@@ -36,21 +36,61 @@ export default function PortfolioSite(): JSX.Element {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrollY, page]);
 
+  const [customColor, setCustomColor] = useState<string | null>(null);
+  const [textColor, setTextColor] = useState<string>("white");
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleClick = () => {
+    // Clear previous reset timer if any
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+
+    // Generate a soft pastel tone
+    const hue = Math.floor(Math.random() * 360);
+    const color = `hsl(${hue}, 70%, 75%)`;
+    const darkerColor = `hsl(${hue}, 70%, 60%)`;
+
+    // Determine contrast for legibility
+    const isLight = 75 > 60; // pastel is always somewhat bright
+    const newTextColor = isLight ? "#1e293b" /* slate-800 */ : "white";
+
+    setCustomColor(`linear-gradient(to right, ${color}, ${darkerColor})`);
+    setTextColor(newTextColor);
+
+    // Reset back to original color smoothly
+    timerRef.current = setTimeout(() => {
+      setCustomColor(null);
+      setTextColor("white");
+      timerRef.current = null;
+    }, 2000);
+  };
+
   return (
     <motion.div
       style={{
-        backgroundColor: backgroundColor
+        backgroundColor: backgroundColor,
       }}
       className="min-h-screen text-gray-900 flex flex-col items-center p-6 transition-colors duration-0"
     >
       <header className="w-full max-w-5xl flex flex-col sm:flex-row justify-between items-center gap-4 py-4 mb-8 px-4">
         <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+          {/* <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-100 to-purple-100 px-4 py-3 rounded-2xl shadow-md border border-blue-200"> */}
           <h1
-            className="text-2xl font-bold text-white 
-            bg-gradient-to-r from-sky-500 to-sky-600 shadow-[0_0_25px_rgba(99,102,241,0.6)]
-            hover:from-blue-500 hover:to-blue-600 hover:shadow-[0_0_25px_rgba(56,189,248,0.8)]
-            px-4 py-3 rounded-2xl border border-blue-700 
-            transition-all duration-300"
+            onClick={handleClick}
+            className="text-2xl font-bold px-4 py-3 rounded-2xl border border-blue-700 shadow-[0_0_25px_rgba(99,102,241,0.6)] transition-all duration-500 cursor-pointer select-none"
+            style={{
+              color: textColor,
+              background:
+                customColor || "linear-gradient(to right, #0ea5e9, #0284c7)",
+              boxShadow: customColor
+                ? `0 0 20px ${customColor.match(/hsl\([^)]*\)/)?.[0]},
+                    0 0 40px ${customColor.match(/hsl\([^)]*\)/)?.[0]},
+                    0 0 60px ${customColor.match(/hsl\([^)]*\)/)?.[0]}`
+                : `0 0 20px rgba(99,102,241,0.6), 
+                    0 0 40px rgba(99,102,241,0.5), 
+                    0 0 60px rgba(99,102,241,0.4)`,
+            }}
           >
             Tae Kwang (Jason) Chung's Website
           </h1>
