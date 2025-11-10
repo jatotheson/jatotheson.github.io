@@ -12,10 +12,15 @@ import { PageButton } from "@/components/ui/PageButton";
 import HomePage from "./pages/Home";
 import ProjectsPage from "./pages/Projects";
 
+
+
 export default function PortfolioSite(): JSX.Element {
+  // default page is "home"
   type Page = "home" | "projects";
   const [page, setPage] = useState<Page>("home");
 
+
+  // set background color depending on the vertical scroll location
   const scrollY = useMotionValue(0);
   const backgroundColor = useTransform(
     scrollY,
@@ -36,6 +41,8 @@ export default function PortfolioSite(): JSX.Element {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrollY, page]);
 
+
+  // set up name box with random color when clicked
   const [customColor, setCustomColor] = useState<string | null>(null);
   const [textColor, setTextColor] = useState<string>("white");
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -66,6 +73,8 @@ export default function PortfolioSite(): JSX.Element {
     }, 2000);
   };
 
+
+
   return (
     <motion.div
       style={{
@@ -75,7 +84,7 @@ export default function PortfolioSite(): JSX.Element {
     >
       <header className="w-full max-w-5xl flex flex-col sm:flex-row justify-between items-center gap-4 py-4 mb-8 px-4">
         <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-          {/* <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-100 to-purple-100 px-4 py-3 rounded-2xl shadow-md border border-blue-200"> */}
+          {/* Name box */}
           <h1
             onClick={handleClick}
             className="text-2xl font-bold px-4 py-3 rounded-2xl border border-blue-700 shadow-[0_0_25px_rgba(99,102,241,0.6)] transition-all duration-500 cursor-pointer select-none"
@@ -95,6 +104,7 @@ export default function PortfolioSite(): JSX.Element {
             Tae Kwang (Jason) Chung's Website
           </h1>
 
+          {/* Icons */}
           <a
             href="https://www.linkedin.com/in/tae-kwang-jason-chung-7a2404149/"
             target="_blank"
@@ -106,6 +116,7 @@ export default function PortfolioSite(): JSX.Element {
           </a>
         </div>
 
+        {/* Different Page Buttons */}
         <nav
           className="flex flex-wrap justify-center sm:justify-end gap-3 sm:gap-4"
           aria-label="Main navigation"
@@ -127,12 +138,15 @@ export default function PortfolioSite(): JSX.Element {
         </nav>
       </header>
 
+
+      {/* set animation between pages */}
       <main className="w-full max-w-5xl min-h-screen">
         <AnimatePresence mode="wait">
           {page === "home" && <HomePage />}
           {page === "projects" && <ProjectsPage />}
         </AnimatePresence>
       </main>
+
 
       <footer className="mt-16 pt-8 text-sm text-gray-500">
         © {new Date().getFullYear()} Jason Chung's Website. All rights reserved.
