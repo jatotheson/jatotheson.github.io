@@ -1,30 +1,21 @@
 {
-  "name": "my-portfolio",
+  "name": "jatotheson-monorepo",
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build && gh-pages -d dist",
-    "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
-  },
-  "dependencies": {
-    "framer-motion": "^11.0.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-icons": "^5.5.0"
+    "dev": "npm run dev --workspace personal-site",
+    "dev:personal-site": "npm run dev --workspace personal-site",
+    "dev:showcase-project": "npm run dev --workspace showcase-project",
+    "build": "node scripts/build-all.mjs",
+    "deploy": "npm run build && gh-pages -d dist",
+    "build:personal-site": "npm run build --workspace personal-site",
+    "build:showcase-project": "npm run build --workspace showcase-project"
   },
   "devDependencies": {
-    "@types/node": "^24.10.0",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "autoprefixer": "^10.4.19",
-    "gh-pages": "^6.3.0",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.5",
-    "vite": "^7.1.12"
+    "gh-pages": "^6.3.0"
   }
 }

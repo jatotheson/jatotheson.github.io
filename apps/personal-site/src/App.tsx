@@ -11,6 +11,7 @@ import { COLORS } from "./constants";
 import { PageButton } from "@/components/ui/PageButton";
 import HomePage from "./pages/Home";
 import ProjectsPage from "./pages/Projects";
+import Color from "color";
 
 
 
@@ -59,8 +60,7 @@ export default function PortfolioSite(): JSX.Element {
     const darkerColor = `hsl(${hue}, 70%, 60%)`;
 
     // Determine contrast for legibility
-    const isLight = 75 > 60; // pastel is always somewhat bright
-    const newTextColor = isLight ? "#1e293b" /* slate-800 */ : "white";
+    const newTextColor = Color(darkerColor).isLight() ? "#1e293b" /* slate-800 */ : "white";
 
     setCustomColor(`linear-gradient(to right, ${color}, ${darkerColor})`);
     setTextColor(newTextColor);
