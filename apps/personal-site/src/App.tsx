@@ -8,7 +8,7 @@ import {
 } from "framer-motion";
 import { FaLinkedin } from "react-icons/fa";
 
-import { COLORS } from "./constants";
+import { COLORS, WEBSITE_VERSION } from "./constants";
 import { PageButton } from "@/components/ui/PageButton";
 import HomePage from "./pages/Home";
 import ProjectsPage from "./pages/Projects";
@@ -108,8 +108,16 @@ export default function PortfolioSite(): JSX.Element {
       style={{
         backgroundColor: backgroundColor,
       }}
-      className="min-h-screen text-gray-900 flex flex-col items-center p-6 transition-colors duration-0"
+      className="relative min-h-screen text-gray-900 flex flex-col items-center p-6 transition-colors duration-0"
     >
+      {page === "home" && (
+        <span
+          className="absolute top-4 right-4 text-xs tracking-[0.3em] uppercase text-gray-400 font-mono"
+          aria-label={`Site version ${WEBSITE_VERSION}`}
+        >
+          v{WEBSITE_VERSION}
+        </span>
+      )}
       <header className="w-full max-w-5xl flex flex-col sm:flex-row justify-between items-center gap-4 py-4 mb-8 px-4">
         <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
           {/* Name box */}

@@ -1,3 +1,6 @@
+export const WEBSITE_VERSION = '01.00.00' as const
+
+
 export const COLORS = {
   background: {
     default: 'rgb(255, 255, 255)',
