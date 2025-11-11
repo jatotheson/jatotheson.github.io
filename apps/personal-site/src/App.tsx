@@ -44,8 +44,14 @@ export default function PortfolioSite(): JSX.Element {
 
 
   // set up name box with random color when clicked
-  const [customColor, setCustomColor] = useState<string | null>(null);
-  const [textColor, setTextColor] = useState<string>("white");
+  type NamePalette = {
+    background: string | null;
+    text: string;
+  };
+  const [namePalette, setNamePalette] = useState<NamePalette>({
+    background: null,
+    text: "white",
+  });
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleClick = () => {
@@ -62,13 +68,17 @@ export default function PortfolioSite(): JSX.Element {
     // Determine contrast for legibility
     const newTextColor = Color(darkerColor).isLight() ? "#1e293b" /* slate-800 */ : "white";
 
-    setCustomColor(`linear-gradient(to right, ${color}, ${darkerColor})`);
-    setTextColor(newTextColor);
+    setNamePalette({
+      background: `linear-gradient(to right, ${color}, ${darkerColor})`,
+      text: newTextColor,
+    });
 
     // Reset back to original color smoothly
     timerRef.current = setTimeout(() => {
-      setCustomColor(null);
-      setTextColor("white");
+      setNamePalette({
+        background: null,
+        text: "white",
+      });
       timerRef.current = null;
     }, 2000);
   };
@@ -89,13 +99,14 @@ export default function PortfolioSite(): JSX.Element {
             onClick={handleClick}
             className="text-2xl font-bold px-4 py-3 rounded-2xl border border-blue-700 shadow-[0_0_25px_rgba(99,102,241,0.6)] transition-all duration-500 cursor-pointer select-none"
             style={{
-              color: textColor,
+              color: namePalette.text,
               background:
-                customColor || "linear-gradient(to right, #0ea5e9, #0284c7)",
-              boxShadow: customColor
-                ? `0 0 20px ${customColor.match(/hsl\([^)]*\)/)?.[0]},
-                    0 0 40px ${customColor.match(/hsl\([^)]*\)/)?.[0]},
-                    0 0 60px ${customColor.match(/hsl\([^)]*\)/)?.[0]}`
+                namePalette.background ||
+                "linear-gradient(to right, #0ea5e9, #0284c7)",
+              boxShadow: namePalette.background
+                ? `0 0 20px ${namePalette.background.match(/hsl\([^)]*\)/)?.[0]},
+                    0 0 40px ${namePalette.background.match(/hsl\([^)]*\)/)?.[0]},
+                    0 0 60px ${namePalette.background.match(/hsl\([^)]*\)/)?.[0]}`
                 : `0 0 20px rgba(99,102,241,0.6), 
                     0 0 40px rgba(99,102,241,0.5), 
                     0 0 60px rgba(99,102,241,0.4)`,
