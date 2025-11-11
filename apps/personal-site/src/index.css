@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@property --name-start {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #0ea5e9;
+}
+
+@property --name-end {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #0284c7;
+}

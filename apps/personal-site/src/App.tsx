@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import type { CSSProperties } from "react";
 import {
   motion,
   AnimatePresence,
@@ -13,13 +14,22 @@ import HomePage from "./pages/Home";
 import ProjectsPage from "./pages/Projects";
 import Color from "color";
 
+const defaultPalette = {
+  start: "#0ea5e9",
+  end: "#0284c7",
+  text: "white",
+};
 
+type NamePalette = {
+  start: string;
+  end: string;
+  text: string;
+};
 
 export default function PortfolioSite(): JSX.Element {
   // default page is "home"
   type Page = "home" | "projects";
   const [page, setPage] = useState<Page>("home");
-
 
   // set background color depending on the vertical scroll location
   const scrollY = useMotionValue(0);
@@ -44,14 +54,7 @@ export default function PortfolioSite(): JSX.Element {
 
 
   // set up name box with random color when clicked
-  type NamePalette = {
-    background: string | null;
-    text: string;
-  };
-  const [namePalette, setNamePalette] = useState<NamePalette>({
-    background: null,
-    text: "white",
-  });
+  const [namePalette, setNamePalette] = useState<NamePalette>(defaultPalette);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleClick = () => {
@@ -69,21 +72,36 @@ export default function PortfolioSite(): JSX.Element {
     const newTextColor = Color(darkerColor).isLight() ? "#1e293b" /* slate-800 */ : "white";
 
     setNamePalette({
-      background: `linear-gradient(to right, ${color}, ${darkerColor})`,
+      start: color,
+      end: darkerColor,
       text: newTextColor,
     });
 
     // Reset back to original color smoothly
     timerRef.current = setTimeout(() => {
-      setNamePalette({
-        background: null,
-        text: "white",
-      });
+      setNamePalette(defaultPalette);
       timerRef.current = null;
     }, 2000);
   };
 
 
+
+  type NameBadgeStyle = CSSProperties & {
+    "--name-start": string;
+    "--name-end": string;
+  };
+
+  const nameBadgeStyle: NameBadgeStyle = {
+    "--name-start": namePalette.start,
+    "--name-end": namePalette.end,
+    color: namePalette.text,
+    background: "linear-gradient(to right, var(--name-start), var(--name-end))",
+    transition:
+      "color 0.4s ease, box-shadow 0.4s ease, --name-start 0.4s ease, --name-end 0.4s ease",
+    boxShadow: `0 0 20px ${Color(namePalette.end).alpha(0.6).string()},
+                    0 0 40px ${Color(namePalette.end).alpha(0.5).string()},
+                    0 0 60px ${Color(namePalette.end).alpha(0.4).string()}`,
+  };
 
   return (
     <motion.div
@@ -97,20 +115,8 @@ export default function PortfolioSite(): JSX.Element {
           {/* Name box */}
           <h1
             onClick={handleClick}
-            className="text-2xl font-bold px-4 py-3 rounded-2xl border border-blue-700 shadow-[0_0_25px_rgba(99,102,241,0.6)] transition-all duration-500 cursor-pointer select-none"
-            style={{
-              color: namePalette.text,
-              background:
-                namePalette.background ||
-                "linear-gradient(to right, #0ea5e9, #0284c7)",
-              boxShadow: namePalette.background
-                ? `0 0 20px ${namePalette.background.match(/hsl\([^)]*\)/)?.[0]},
-                    0 0 40px ${namePalette.background.match(/hsl\([^)]*\)/)?.[0]},
-                    0 0 60px ${namePalette.background.match(/hsl\([^)]*\)/)?.[0]}`
-                : `0 0 20px rgba(99,102,241,0.6), 
-                    0 0 40px rgba(99,102,241,0.5), 
-                    0 0 60px rgba(99,102,241,0.4)`,
-            }}
+            className="text-2xl font-bold px-4 py-3 rounded-2xl border border-blue-700 shadow-[0_0_25px_rgba(99,102,241,0.6)] cursor-pointer select-none"
+            style={nameBadgeStyle}
           >
             Tae Kwang (Jason) Chung's Website
           </h1>
