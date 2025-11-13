@@ -1,4 +1,4 @@
-export const WEBSITE_VERSION = '01.00.01' as const
+export const WEBSITE_VERSION = '01.00.02' as const
 
 
 export const COLORS = {
@@ -14,9 +14,8 @@ export const COLORS = {
 } as const
 
 
-export const ANIMATION = {
-  duration: 0.5,
-  scrollHeight: '120vh',
+export const PROJECT_CARD = {
+  minHeight: 240,
 } as const
 
 
@@ -29,3 +28,4 @@ export function getAssetUrl(path: string): string {
 
   return `${base_url}${path.replace(/^\/+/, '')}`
 }
+
