@@ -10,7 +10,7 @@ const projects = [
     href: '/',
   },
   {
-    title: 'LaunchPad',
+    title: 'LaunchPad (Placeholder)',
     summary:
       'A guided experimentation coach that watches time, energy, and context before suggesting the next micro-challenge. Built as an independent Vite + React experience with its own deployment pipeline.',
     tech: 'React · Typescript · UnoCSS · Supabase Edge',
