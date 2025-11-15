@@ -38,7 +38,7 @@ export default function ShowcaseProject(): JSX.Element {
           <a className="primary" href="https://github.com/jatotheson" target="_blank" rel="noreferrer">
             View source
           </a>
-          <a className="ghost" href="https://jatotheson.github.io" target="_blank" rel="noreferrer">
+          <a className="ghost" href="https://jatotheson.github.io">
             Back to portfolio
           </a>
         </div>
