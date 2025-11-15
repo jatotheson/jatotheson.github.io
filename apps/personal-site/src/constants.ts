@@ -1,4 +1,4 @@
-export const WEBSITE_VERSION = '01.00.02' as const
+export const WEBSITE_VERSION = '01.00.03' as const
 
 
 export const COLORS = {
